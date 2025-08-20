@@ -277,6 +277,13 @@ img {
   border-radius: 0.5rem;
 }
 
+/* زرار الـ CV */
+.cv-btn {
+  margin-top: 15px;     /* يخلي الزرار ينزل تحت شوية */
+  display: inline-block; /* يضمن إن المسافة تتطبق صح */
+}
+
+
 /* ===== SKILLS =====*/
 .skills__container {
   row-gap: 2rem;
