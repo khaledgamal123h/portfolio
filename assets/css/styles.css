@@ -277,11 +277,17 @@ img {
   border-radius: 0.5rem;
 }
 
-/* زرار الـ CV */
-.cv-btn {
-  margin-top: 15px;     /* يخلي الزرار ينزل تحت شوية */
-  display: inline-block; /* يضمن إن المسافة تتطبق صح */
+/* البراجراف في الـ About */
+.about__text {
+  margin-bottom: 25px;   /* مسافة واضحة بين الكلام والزرار */
 }
+
+/* زرار الـ CV */
+.button.cv-btn {
+  display: inline-block; /* يحافظ على الشكل */
+  text-align: center;    /* يضمن المحاذاة */
+}
+
 
 
 /* ===== SKILLS =====*/
