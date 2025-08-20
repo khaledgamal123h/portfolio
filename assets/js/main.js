@@ -57,5 +57,74 @@ sr.reveal('.home__img, .about__subtitle, .about__text, .skills__img', { delay: 4
 sr.reveal('.home__social-icon', { interval: 200 });
 sr.reveal('.skills__data, .work__img, .contact__input', { interval: 200 });
 
+/* ===== AUTO SCROLL (robust + smooth) ===== */
+(function () {
+    const el = document.scrollingElement || document.documentElement; // العنصر القابل للتمرير
+    let rafId = null;
+    let active = false;
+    let lastTime = null;
+    let pxPerSecond = 40; // سرعة النزول (Zid/قلّل على مزاجك)
+
+    function step(ts) {
+        if (!active) return;
+        if (lastTime == null) { lastTime = ts; rafId = requestAnimationFrame(step); return; }
+        const dt = ts - lastTime; // ms
+        lastTime = ts;
+
+        const dy = (pxPerSecond * dt) / 1000; // نحسب المسافة حسب الوقت
+        el.scrollTop += dy;
+
+        const atBottom = Math.ceil(el.clientHeight + el.scrollTop) >= el.scrollHeight;
+        if (atBottom) {
+            // لو وصلت للآخر، ارجع للأعلى وكمل (لو مش عايز لوب، احذف الجزء ده)
+            setTimeout(() => {
+                el.scrollTo({ top: 0, behavior: 'auto' });
+                lastTime = null;
+                rafId = requestAnimationFrame(step);
+            }, 800);
+        } else {
+            rafId = requestAnimationFrame(step);
+        }
+    }
+
+    function start() {
+        if (rafId != null) return;
+        active = true;
+        lastTime = null;
+        rafId = requestAnimationFrame(step);
+    }
+
+    function stop() {
+        active = false;
+        if (rafId) cancelAnimationFrame(rafId);
+        rafId = null;
+    }
+
+    // ابدأ بعد تحميل الصفحة بوقت بسيط عشان الصور/الفonts
+    window.addEventListener('load', () => setTimeout(start, 800));
+
+    // وقّف عند أي تفاعل من المستخدم، وارجع كمل بعد 5 ثواني هدوء
+    const pause = () => {
+        stop();
+        clearTimeout(window.__autoScrollResumeT);
+        window.__autoScrollResumeT = setTimeout(start, 5000);
+    };
+    ['wheel', 'touchstart', 'keydown', 'mousedown'].forEach(ev =>
+        window.addEventListener(ev, pause, { passive: true })
+    );
+
+    // أدوات مفيدة لو حبيت تتحكم من الكونسول
+    window.autoScrollControl = {
+        start, stop,
+        setSpeed: (s) => { pxPerSecond = Math.max(1, Number(s) || 40); }
+    };
+})();
+
+  window.addEventListener("load", () => {
+    const preloader = document.getElementById("preloader");
+    setTimeout(() => {
+      preloader.classList.add("hidden");
+    }, 4000); // 4 ثواني
+  });
 
 
