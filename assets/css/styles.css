@@ -575,26 +575,43 @@
 
 
 
-  /* Certifications Cards */
-  .certifications .cert-card {
-    background: #fff;
-    border: 2px solid #1e90ff;
-    border-radius: 12px;
-    padding: 1rem;
-    text-align: center;
-    transition: 0.3s ease-in-out;
-  }
+/* Container for Certifications */
+.certifications {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem; /* المسافة بين الكروت */
+  padding: 1rem 0;
+}
 
-  .certifications .cert-card img {
-    width: 100%;
-    border-radius: 10px;
-    margin-bottom: 10px;
-  }
+/* Certifications Cards */
+.certifications .cert-card {
+  background: #fff;
+  border: 2px solid #1e90ff;
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
 
-  .certifications .cert-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-  }
+.certifications .cert-card img {
+  width: 100%;
+  height: 180px; /* نفس ارتفاع الصور كلها */
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.certifications .cert-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* تأثير على الصورة عند hover */
+.certifications .cert-card:hover img {
+  transform: scale(1.05);
+}
+
 
 
 
